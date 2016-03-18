@@ -1,0 +1,16 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'IOSWifiSender' do
+pod 'OpenWeatherMapAPI', '~> 0.0.5'
+pod ‘Parse’
+end
+
+target 'IOSWifiSenderTests' do
+
+end
+
+target 'IOSWifiSenderUITests' do
+
+end
+
