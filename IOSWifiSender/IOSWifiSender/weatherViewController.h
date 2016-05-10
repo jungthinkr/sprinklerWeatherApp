@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface weatherViewController : UIViewController
-
+@interface weatherViewController : UIViewController 
+{
+ 
+}
 @end
 

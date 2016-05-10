@@ -10,19 +10,53 @@
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
-
+{
+    //@property (nonatomic, strong) NSString *userName;
+}
 @end
 
 @implementation AppDelegate
 
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     // Override point for customization after application launch.
     [Parse setApplicationId:@"2cgtN37k2k6hylSkqZeBmREGrYSwAjiKG7AIZY3v" clientKey:@"Ad9u7dApDtgOLUJgEe0cm18CjpwzTZDB2gjNrpWt"];
     [PFUser logInWithUsernameInBackground:@"root" password:@"root"
                                     block:^(PFUser *user, NSError *error) {
                                         if (user) {
-                                            // Do stuff after successful login.
+                                            PFQuery *query = [PFQuery queryWithClassName:@"info"];
+                                            [query getObjectInBackgroundWithId:@"GNoVk3Re5d" block:^(PFObject *deviceInfo, NSError *error) {
+                                                
+                                                // Do stuff after successful login.
+                                               // PFObject *deviceInfo;
+                                               // deviceInfo = [PFObject objectWithClassName:@"info"];
+                                               /* deviceInfo[@"v1"] = user[@"v1"];
+                                                deviceInfo[@"v2"] = user[@"v2"];
+                                                deviceInfo[@"Off"] = user[@"Off"];
+                                                deviceInfo[@"1D"] = user[@"1D"];
+                                                deviceInfo[@"2D"] = user[@"2D"];
+                                                deviceInfo[@"3D"] = user[@"3D"];
+                                                deviceInfo[@"4D"] = user[@"4D"];
+                                                deviceInfo[@"5D"] = user[@"5D"];
+                                                deviceInfo[@"6D"] = user[@"6D"];
+                                                deviceInfo[@"7D"] = user[@"7D"];
+                                                
+                                                deviceInfo[@"1T"] = user[@"1T"];
+                                                deviceInfo[@"2T"] = user[@"2T"];
+                                                deviceInfo[@"3T"] = user[@"3T"];
+                                                deviceInfo[@"4T"] = user[@"4T"];
+                                                deviceInfo[@"5T"] = user[@"5T"];
+                                                deviceInfo[@"6T"] = user[@"6T"];
+                                                deviceInfo[@"7T"] = user[@"7T"];*/
+                                                [deviceInfo saveInBackground];
+                             
+                                            }];
+                                            // T
+                                           
+
+                                            
                                         } else {
                                             NSLog(@"%@", error);
                                             // The login failed. Check error to see why.

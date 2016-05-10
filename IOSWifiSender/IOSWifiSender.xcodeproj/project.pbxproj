@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27A1D6481CB6D74F00F9A387 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A1D6471CB6D74F00F9A387 /* CoreData.framework */; };
+		27A1D64A1CB6D7E000F9A387 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A1D6491CB6D7E000F9A387 /* UIKit.framework */; };
 		27CDA2041C9B78E3009A502B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDA2031C9B78E3009A502B /* main.m */; };
 		27CDA2881C9B79DA009A502B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDA2871C9B79DA009A502B /* AppDelegate.m */; };
 		27D94EEE1C90D52000C641E0 /* scheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D94EED1C90D52000C641E0 /* scheduleViewController.m */; };
@@ -38,6 +40,9 @@
 
 /* Begin PBXFileReference section */
 		12A45CCA29BB16F7D116CC1A /* Pods-IOSWifiSender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSWifiSender.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSWifiSender/Pods-IOSWifiSender.release.xcconfig"; sourceTree = "<group>"; };
+		27269E2B1CB5BD45003A03CB /* IOSWifiSender-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOSWifiSender-Bridging-Header.h"; sourceTree = "<group>"; };
+		27A1D6471CB6D74F00F9A387 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		27A1D6491CB6D7E000F9A387 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		27CDA2031C9B78E3009A502B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CDA2861C9B79DA009A502B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27CDA2871C9B79DA009A502B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -65,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A1D64A1CB6D7E000F9A387 /* UIKit.framework in Frameworks */,
+				27A1D6481CB6D74F00F9A387 /* CoreData.framework in Frameworks */,
 				4891491C848D6A0CE71BF979 /* libPods-IOSWifiSender.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +138,7 @@
 				419EE5FF1C007C68007968B2 /* LaunchScreen.storyboard */,
 				419EE6021C007C68007968B2 /* Info.plist */,
 				419EE5F11C007C68007968B2 /* Supporting Files */,
+				27269E2B1CB5BD45003A03CB /* IOSWifiSender-Bridging-Header.h */,
 			);
 			path = IOSWifiSender;
 			sourceTree = "<group>";
@@ -164,6 +172,8 @@
 		EF912925811AE73B3085E283 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27A1D6491CB6D7E000F9A387 /* UIKit.framework */,
+				27A1D6471CB6D74F00F9A387 /* CoreData.framework */,
 				441B44A3C0D0EAB612EB8672 /* libPods-IOSWifiSender.a */,
 			);
 			name = Frameworks;
@@ -233,6 +243,7 @@
 		419EE5E61C007C68007968B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = tanno;
 				TargetAttributes = {
@@ -482,13 +493,18 @@
 			baseConfigurationReference = E10D0BE7EC39A8A2285E7E6B /* Pods-IOSWifiSender.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IOSWifiSender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = aizu.IOSWifiSender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IOSWifiSender/IOSWifiSender-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -497,13 +513,17 @@
 			baseConfigurationReference = 12A45CCA29BB16F7D116CC1A /* Pods-IOSWifiSender.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IOSWifiSender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = aizu.IOSWifiSender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IOSWifiSender/IOSWifiSender-Bridging-Header.h";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

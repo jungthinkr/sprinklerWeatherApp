@@ -8,6 +8,13 @@
 
 #import "scheduleViewController.h"
 #import <Parse/Parse.h>
+#import "weatherViewController.h"
+#import "OWMWeatherAPI.h"
+#import <CFNetwork/CFNetwork.h>
+#import <sys/socket.h>
+#import <netinet/in.h>
+#import <arpa/inet.h>
+#import "AppDelegate.h"
 @interface scheduleViewController(){
     
     __weak IBOutlet UITableView *timeTable;
@@ -15,9 +22,10 @@
     __weak IBOutlet UIButton *updateButton;
 
     
-    
+   // NSInteger *weekday;
     NSArray* timeArray;
     NSArray * durationArray;
+    NSArray *timeArray2;
     UIView * tempHolder;
     UITapGestureRecognizer *tapGesture;
 }
@@ -42,7 +50,87 @@
               
           }
       }
-    [PFUser currentUser][@"schedule"] = schedule;
+    PFQuery *query = [PFQuery queryWithClassName:@"info"];
+    [query getObjectInBackgroundWithId:@"GNoVk3Re5d" block:^(PFObject *deviceInfo, NSError *error) {
+        // Do stuff after successful login.
+        // PFObject *deviceInfo;
+        for (int i = 0; i < [duration count];++i){
+            
+            switch (i){
+                case 0:
+                    deviceInfo[@"D1"] = duration[i];
+                    deviceInfo[@"T1"] = time[i];
+                    break;
+                case 1:
+                    deviceInfo[@"D2"] = duration[i];
+                    deviceInfo[@"T2"] = time[i];
+                    break;
+                case 2:
+                    deviceInfo[@"D3"] = duration[i];
+                    deviceInfo[@"T3"] = time[i];
+                    break;
+                case 3:
+                    deviceInfo[@"D4"] = duration[i];
+                    deviceInfo[@"T4"] = time[i];
+                    break;
+                case 4:
+                    deviceInfo[@"D5"] = duration[i];
+                    deviceInfo[@"T5"] = time[i];
+                    break;
+                case 5:
+                    deviceInfo[@"D6"] = duration[i];
+                    deviceInfo[@"T6"] = time[i];
+                    break;
+                case 6:
+                    deviceInfo[@"D7"] = duration[i];
+                    deviceInfo[@"T7"] = time[i];
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+      
+        [deviceInfo saveInBackground];
+        
+    }];
+    for (int i = 0; i < [duration count];++i){
+        
+        switch (i){
+            case 0:
+                [PFUser currentUser][@"D1"] = duration[i];
+                [PFUser currentUser][@"T1"] = time[i];
+                break;
+            case 1:
+                [PFUser currentUser][@"D2"] = duration[i];
+                [PFUser currentUser][@"T2"] = time[i];
+                break;
+            case 2:
+                [PFUser currentUser][@"D3"] = duration[i];
+                [PFUser currentUser][@"T3"] = time[i];
+                break;
+            case 3:
+                [PFUser currentUser][@"D4"] = duration[i];
+                [PFUser currentUser][@"T4"] = time[i];
+                break;
+            case 4:
+                [PFUser currentUser][@"D5"] = duration[i];
+                [PFUser currentUser][@"T5"] = time[i];
+                break;
+            case 5:
+                [PFUser currentUser][@"D6"] = duration[i];
+                [PFUser currentUser][@"T6"] = time[i];
+                break;
+            case 6:
+                [PFUser currentUser][@"D7"] = duration[i];
+                [PFUser currentUser][@"T7"] = time[i];
+                break;
+            default:
+                break;
+        }
+        
+    }
+   // [PFUser currentUser][@"schedule"] = schedule;
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // The object has been saved.
@@ -54,25 +142,124 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView *gradientView = [[UIView alloc] initWithFrame:self.view.frame];
+    gradientView.alpha = .7;
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.frame;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor blueColor] CGColor], nil];
+    [gradientView.layer insertSublayer:gradient atIndex:0];
+    [self.view insertSubview:gradientView atIndex:0];
     NSArray* schedule = [PFUser currentUser][@"schedule"];
     NSInteger i = 0;
     NSInteger j = 0;
-    NSLog(@"%@",schedule);
+    
+    //NSLog(@"%@",schedule);
     for (UIView *subView in self.view.subviews) {
         if (subView.tag == 1){
             UILabel* tempLabel = (UILabel*) subView;
-            tempLabel.text = schedule[0][i];
+            //tempLabel.text = schedule[0][i];
             //subView = tempLabel;
+            switch (i){
+                case 0:
+                    tempLabel.text = [PFUser currentUser][@"T1"];
+                    break;
+                case 1:
+                    tempLabel.text = [PFUser currentUser][@"T2"];
+                    break;
+                case 2:
+                    tempLabel.text = [PFUser currentUser][@"T3"];
+                    break;
+                case 3:
+                    tempLabel.text = [PFUser currentUser][@"T4"];
+                    break;
+                case 4:
+                    tempLabel.text = [PFUser currentUser][@"T5"];
+                    break;
+                case 5:
+                    tempLabel.text = [PFUser currentUser][@"T6"];
+                    break;
+                case 6:
+                    tempLabel.text = [PFUser currentUser][@"T7"];
+                    break;
+                default:
+                    break;
+            }
             i++;
             
         }
         if (subView.tag == 2){
             UILabel* tempLabel = (UILabel*) subView;
-            tempLabel.text = schedule[1][j];
+          //  tempLabel.text = schedule[1][j];
            // subView = tempLabel;
+            switch (j){
+                case 0:
+                    tempLabel.text = [PFUser currentUser][@"D1"];
+                    break;
+                case 1:
+                    tempLabel.text = [PFUser currentUser][@"D2"];
+                    break;
+                case 2:
+                    tempLabel.text = [PFUser currentUser][@"D3"];
+                    break;
+                case 3:
+                    tempLabel.text = [PFUser currentUser][@"D4"];
+                    break;
+                case 4:
+                    tempLabel.text = [PFUser currentUser][@"D5"];
+                    break;
+                case 5:
+                    tempLabel.text = [PFUser currentUser][@"D6"];
+                    break;
+                case 6:
+                    tempLabel.text = [PFUser currentUser][@"D7"];
+                    break;
+                default:
+                    break;
+            }
             j++;
             
         }
+    }
+    AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDel.weekday > 0){
+        //NSLog(@"%lu", weekday);
+        NSLog(@"greather than zero");
+        if ([appDel.weekday intValue] == 1){
+            int i = 0;
+            for (UIView *subView in self.view.subviews){
+                if (subView.tag == 2){
+                    if (i ==6){
+                        UILabel* tempLabel = (UILabel*) subView;
+                        tempLabel.text = @"0m";
+                    }
+                    else{
+                        
+                    }
+                    i++;
+                }
+                
+            }
+        }
+        else{
+            int j = 0;
+            for (UIView *subView in self.view.subviews){
+                if (subView.tag == 2){
+                    if (j == [appDel.weekday intValue] - 2){
+                        UILabel* tempLabel = (UILabel*) subView;
+                        tempLabel.text = @"0m";
+                    }
+                    else{
+                        
+                    }
+                    j++;
+
+                }
+            }
+
+        }
+    }
+    else{
+        NSLog(@"not greater than zero");
     }
     
     tapGesture= [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureFunc:)];
@@ -83,9 +270,10 @@
                                              selector:@selector(keyboardWillShow)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    timeArray = @[@"12:00AM", @"1:00AM", @"2:00AM", @"3:00AM", @"4:00AM", @"5:00AM", @"6:00AM", @"7:00AM",@"8:00AM", @"9:00AM", @"10:00AM", @"11:00AM", @"12:00PM", @"1:00PM", @"2:00PM", @"3:00PM", @"4:00PM", @"5:00PM", @"6:00PM", @"7:00PM", @
-                  "8:00PM", @"9:00PM", @"10:00PM", @"11:00PM"];
-    durationArray = @[@"---",@"15 min", @"30 min", @"1 hour", @"2 hours"  ];
+    timeArray = @[@"00:00", @"01:00", @"02:00", @"03:00", @"04:00", @"05:00", @"06:00", @"07:00",@"08:00", @"09:00", @"10:00", @"11:00", @"12:00", @"13:00", @"14:00", @"15:00", @"16:00", @"17:00", @"18:00", @"19:00", @
+                  "20:00", @"21:00", @"22:00", @"23:00"];
+
+    durationArray = @[@"0m",@"15m", @"30m", @"60m", @"120m"  ];
     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

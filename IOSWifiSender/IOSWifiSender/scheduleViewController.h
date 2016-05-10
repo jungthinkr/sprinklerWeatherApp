@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface scheduleViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+{
 
+}
 @end
